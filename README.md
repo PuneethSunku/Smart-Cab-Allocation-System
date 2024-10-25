@@ -1,70 +1,250 @@
-# Getting Started with Create React App
+Smart Cab Allocation System for Efficient Trip Planning
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Overview
 
-## Available Scripts
+The Smart Cab Allocation System is designed to optimize cab allocation and enhance trip planning efficiency by using real-time location data. It leverages Google Maps APIs and the Haversine formula for location-based cab searches, providing both admins and users with a seamless experience for booking and managing rides.
 
-In the project directory, you can run:
+Features
+1. Admin's Cab Allocation Optimization
+Objective:
+To develop an algorithm that optimizes cab allocation by reducing the overall travel distance between cabs and trip start locations.
 
-### `npm start`
+Key Tasks:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+An algorithm suggests the best cab based on proximity to the trip's start location.
+Real-time location data for cabs and trip start points is integrated.
+The algorithm is tested for minimizing travel distance and improving trip efficiency.
+2. Employee/User's Cab Search Optimization
+Objective:
+Enhance the user experience by providing relevant and nearby cab suggestions.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Key Tasks:
 
-### `npm test`
+Utilize real-time data to display cabs currently engaged in trips that are still nearby the user’s location.
+Provide quick and accurate cab suggestions based on proximity and availability.
+3. Real-Time Location Data Integration
+Objective:
+Ensure seamless integration of real-time data to improve the accuracy of cab allocation and tracking.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Key Tasks:
 
-### `npm run build`
+Set up real-time tracking for cab locations using Google Maps APIs.
+Integrate location data into the cab allocation algorithm for real-time updates.
+Handle potential issues like data latency and inaccuracies to maintain system reliability.
+Prerequisites
+Location-Detectable Devices:
+Ensure that users have location detection enabled on their devices (laptops, smartphones) to allow the system to fetch accurate current positions for cab searches.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Google Maps API Access:
+The platform uses Google Maps to fetch latitude, longitude, pincode, town, and actual road points for cab tracking and real-time trip management. Ensure you have valid API keys set up for Maps functionality.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Project Structure
+Backend  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+/backend
+│
+├── /config
+│   └── db.js                 # Database configuration
+│
+├── /controllers
+│   ├── authController.js      # Authentication logic
+│   └── cabController.js       # Cab-related logic (e.g., adding, booking)
+│
+├── /middleware
+│   └── fetchUser.js           # Middleware to authenticate users
+│
+├── /models
+│   ├── Cab.js                 # Cab model schema
+│   └── User.js                # User model schema
+│
+├── /routes
+│   ├── authRoutes.js          # Routes for authentication (register, login, getUser)
+│   └── cabRoutes.js           # Routes for cab actions (addCab, availableCabs, bookCab, endTrip)
+│
+└── server.js                  # Entry point for backend server
 
-### `npm run eject`
+Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+/src
+│
+├── /components
+│   ├── AdminDashboard.js      # Admin view for managing cabs
+│   ├── AdminNavbar.js         # Navbar for the admin panel
+│   ├── Home.js                # Home view for users
+│   ├── Login.js               # Login form
+│   ├── Navbar.js              # Navbar for user views
+│   ├── PrivateRoute.js        # Route guard to protect routes
+│   ├── SignUp.js              # User sign-up form
+│   ├── UserDetails.js         # User profile details
+│   └── MyCab.js               # Cab booking and tracking
+│
+├── index.js                   # Main React entry point
+└── App.js                     # Main application component
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Here's a comprehensive README.md file for your GitHub repository, integrating the features and implementation details you've worked on:
 
-## Learn More
+Smart Cab Allocation System for Efficient Trip Planning
+Project Overview
+The Smart Cab Allocation System is designed to optimize cab allocation and enhance trip planning efficiency by using real-time location data. It leverages Google Maps APIs and the Haversine formula for location-based cab searches, providing both admins and users with a seamless experience for booking and managing rides.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Features
+1. Admin's Cab Allocation Optimization
+Objective:
+To develop an algorithm that optimizes cab allocation by reducing the overall travel distance between cabs and trip start locations.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Key Tasks:
 
-### Code Splitting
+An algorithm suggests the best cab based on proximity to the trip's start location.
+Real-time location data for cabs and trip start points is integrated.
+The algorithm is tested for minimizing travel distance and improving trip efficiency.
+2. Employee/User's Cab Search Optimization
+Objective:
+Enhance the user experience by providing relevant and nearby cab suggestions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Key Tasks:
 
-### Analyzing the Bundle Size
+Utilize real-time data to display cabs currently engaged in trips that are still nearby the user’s location.
+Provide quick and accurate cab suggestions based on proximity and availability.
+3. Real-Time Location Data Integration
+Objective:
+Ensure seamless integration of real-time data to improve the accuracy of cab allocation and tracking.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Key Tasks:
 
-### Making a Progressive Web App
+Set up real-time tracking for cab locations using Google Maps APIs.
+Integrate location data into the cab allocation algorithm for real-time updates.
+Handle potential issues like data latency and inaccuracies to maintain system reliability.
+Prerequisites
+Location-Detectable Devices:
+Ensure that users have location detection enabled on their devices (laptops, smartphones) to allow the system to fetch accurate current positions for cab searches.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Google Maps API Access:
+The platform uses Google Maps to fetch latitude, longitude, pincode, town, and actual road points for cab tracking and real-time trip management. Ensure you have valid API keys set up for Maps functionality.
 
-### Advanced Configuration
+Project Structure
+Backend
+bash
+Copy code
+/backend
+│
+├── /config
+│   └── db.js                 # Database configuration
+│
+├── /controllers
+│   ├── authController.js      # Authentication logic
+│   └── cabController.js       # Cab-related logic (e.g., adding, booking)
+│
+├── /middleware
+│   └── fetchUser.js           # Middleware to authenticate users
+│
+├── /models
+│   ├── Cab.js                 # Cab model schema
+│   └── User.js                # User model schema
+│
+├── /routes
+│   ├── authRoutes.js          # Routes for authentication (register, login, getUser)
+│   └── cabRoutes.js           # Routes for cab actions (addCab, availableCabs, bookCab, endTrip)
+│
+└── server.js                  # Entry point for backend server
+Frontend
+bash
+Copy code
+/src
+│
+├── /components
+│   ├── AdminDashboard.js      # Admin view for managing cabs
+│   ├── AdminNavbar.js         # Navbar for the admin panel
+│   ├── Home.js                # Home view for users
+│   ├── Login.js               # Login form
+│   ├── Navbar.js              # Navbar for user views
+│   ├── PrivateRoute.js        # Route guard to protect routes
+│   ├── SignUp.js              # User sign-up form
+│   ├── UserDetails.js         # User profile details
+│   └── MyCab.js               # Cab booking and tracking
+│
+├── index.js                   # Main React entry point
+└── App.js                     # Main application component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+API Endpoints
 
-### Deployment
+Authentication APIs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+POST /api/auth/register – Register a new user.
+POST /api/auth/login – Login and receive a JWT token.
+GET /api/auth/getUser – Get authenticated user details.
 
-### `npm run build` fails to minify
+Cab APIs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+POST /api/cabs/addCab – Admin adds a new cab.
+GET /api/cabs/availableCabs – Fetch all available cabs for users.
+POST /api/cabs/bookCab/:cabId – Book a cab by ID.
+POST /api/cabs/endTrip/:cabId – End a trip by cab ID, making it available again.
+
+
+Nearest Cab Algorithm
+The system uses the Haversine formula to calculate the distance between the user’s location and available cabs. Cabs within the same pincode or within a 5 km radius are considered for the "nearest cabs" list.
+
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in km
+    return distance;
+};
+
+
+Features
+Real-Time Cab Tracking:
+Users can track the live location of their booked cab through Google Maps, with an animation showing the cab's movement and ETA.
+
+Booking & Trip Management:
+Once a cab is booked, it is marked as unavailable for other users. Admins and users can track and end trips, updating cab availability.
+
+Admin Dashboard:
+Admins can manage cabs, Admins can also add new cabs by clicking on map locations.
+
+
+Authentication
+The platform uses JWT (JSON Web Tokens) for secure user authentication and Express Validator for data validation.
+
+Example for JWT:
+
+const jwt = require('jsonwebtoken');
+
+const authenticateUser = (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(403).send('Token required');
+    try {
+        const decoded = jwt.verify(token, 'your-secret-key');
+        req.user = decoded;
+        next();
+    } catch (error) {
+        return res.status(401).send('Invalid Token');
+    }
+};
+
+Admin Credentials:
+Email: admin@gmail.com
+Password: 12345678
+
+
+Prerequisites
+Location-Enabled Devices:
+The platform requires devices with location detection capabilities to find and track nearby cabs.
+
+Google Maps API:
+Ensure you have access to Google Maps services for cab location tracking and route display.
+
+Video Demonstration
+Watch a detailed demonstration of the system here: 
+https://drive.google.com/drive/folders/19pFYFNtk_M4D7LHCnGs-dzpYozc9B9bo?usp=sharing
+
+Conclusion
+The Smart Cab Allocation System optimizes cab management using real-time data and location-based algorithms. With a robust backend and seamless frontend experience, this platform is built for scalability, security, and efficiency.
