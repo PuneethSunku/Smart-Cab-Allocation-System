@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+require('dotenv').config();
 
 // Helper function to format time based on conditions
 const formatTime = (minutes) => {
@@ -64,7 +65,7 @@ const Home = () => {
     return (distance / speed) * 60; // Time in minutes
   };
   const getPincodeFromLatLng = async (lat, lng) => {
-    const apiKey = 'AIzaSyByAR2KTQjR90PX9BQDazts0QfPq99-w8s'; 
+    const apiKey = process.env.api;//Keep here API key(Google one) 
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
     
     try {
@@ -159,6 +160,7 @@ const Home = () => {
         lng: parseFloat(cab.longitude), // Convert longitude to a number
         name: cab.name,
       }));
+      
 
       setCabLocations(locations); // Set cabLocations in state
     } catch (error) {
@@ -217,7 +219,7 @@ const Home = () => {
     const loadGoogleMapsScript = () => {
       if (!document.querySelector(`script[src*="maps.googleapis.com/maps/api/js"]`)) {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyByAR2KTQjR90PX9BQDazts0QfPq99-w8s&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key={process.env.api}&callback=initMap`;
         script.async = true;
         window.initMap = initMap;
         document.body.appendChild(script);
