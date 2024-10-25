@@ -10,27 +10,50 @@ Objective:
 To develop an algorithm that optimizes cab allocation by reducing the overall travel distance between cabs and trip start locations.
 
 Key Tasks:
-
 An algorithm suggests the best cab based on proximity to the trip's start location.
 Real-time location data for cabs and trip start points is integrated.
 The algorithm is tested for minimizing travel distance and improving trip efficiency.
+
+
 2. Employee/User's Cab Search Optimization
 Objective:
 Enhance the user experience by providing relevant and nearby cab suggestions.
 
 Key Tasks:
-
 Utilize real-time data to display cabs currently engaged in trips that are still nearby the user’s location.
 Provide quick and accurate cab suggestions based on proximity and availability.
+
+
 3. Real-Time Location Data Integration
 Objective:
 Ensure seamless integration of real-time data to improve the accuracy of cab allocation and tracking.
 
 Key Tasks:
-
 Set up real-time tracking for cab locations using Google Maps APIs.
 Integrate location data into the cab allocation algorithm for real-time updates.
 Handle potential issues like data latency and inaccuracies to maintain system reliability.
+
+Tech Stack
+Frontend:
+React.js: For building the user interface and creating dynamic web pages.
+HTML/CSS: For structuring and styling the web application.
+JavaScript (ES6): For client-side scripting and logic.
+Bootstrap: For responsive design and UI components.
+
+Backend:
+Node.js: Server-side JavaScript runtime.
+Express.js: Backend framework for building APIs and handling HTTP requests.
+JWT (JSON Web Tokens): For user authentication and session management.
+Express Validator: For validating and sanitizing input data.
+
+Database:
+MongoDB: NoSQL database to store user, cab, and trip data.
+
+APIs & Libraries:
+Google Maps API: For real-time location tracking, calculating distances, and rendering maps.
+Mongoose: MongoDB object modeling for Node.js.
+Haversine Formula: Used to calculate the distance between two latitudes/longitude
+
 Prerequisites
 Location-Detectable Devices:
 Ensure that users have location detection enabled on their devices (laptops, smartphones) to allow the system to fetch accurate current positions for cab searches.
