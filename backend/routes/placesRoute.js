@@ -1,7 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const GOOGLE_PLACES_API_KEY = 'AIzaSyByAR2KTQjR90PX9BQDazts0QfPq99-w8s';// Replace with your actual API key
+require('dotenv').config();
+const GOOGLE_PLACES_API_KEY = process.env.api;// Replace with your actual API key
 
 // Route to get nearby places
 router.get('/places', async (req, res) => {
