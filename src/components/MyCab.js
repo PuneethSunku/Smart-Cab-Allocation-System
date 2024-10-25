@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import axios from 'axios';
+require('dotenv').config();
 
 // Helper function to calculate distance using Haversine formula
 const calculateDistance = (fromLat, fromLng, toLat, toLng) => {
@@ -78,7 +79,7 @@ const MyCab = () => {
     const loadGoogleMapsScript = () => {
       if (!document.querySelector(`script[src*="maps.googleapis.com/maps/api/js"]`)) {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyByAR2KTQjR90PX9BQDazts0QfPq99-w8s&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key={process.env.api}&callback=initMap`;
         script.async = true;
         window.initMap = initMap;
         document.body.appendChild(script);
