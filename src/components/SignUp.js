@@ -32,49 +32,20 @@ const Signup = () => {
       }
     }
   };
-  
-  
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-
   return (
     <div className="signup-wrapper">
       <div className="signup-container">
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={credentials.name}
-            onChange={onChange}
-            required
-            style={{ width: '92%' }}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={credentials.email}
-            onChange={onChange}
-            required
-            style={{ width: '92%' }}
-          />
+          <input type="text" placeholder="Name" name="name" value={credentials.name} onChange={onChange} required style={{ width: '92%' }} />
+          <input type="email" placeholder="Email" name="email" value={credentials.email} onChange={onChange} required style={{ width: '92%' }} />
           <div className="password-input-container">
-            <input
-              type={showPassword ? 'text' : 'password'} // Toggle between password and text
-              placeholder="Password"
-              name="password"
-              value={credentials.password}
-              onChange={onChange}
-              required
-            />
-            <span
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)} // Toggle visibility
-            >
+            <input type={showPassword ? 'text' : 'password'} placeholder="Password" name="password" value={credentials.password} onChange={onChange} required />
+            <span className="toggle-password" onClick={() => setShowPassword(!showPassword)}> {/*Toggle visibility */}
               {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Show eye or eye-slash icon */}
             </span>
           </div>
