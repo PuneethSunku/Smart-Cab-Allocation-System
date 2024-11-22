@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/SignUp';
 import MyCab from './components/MyCab';
 import AdminDashboard from './components/AdminDashboard';
-import UserDetails from './components/UserDetails'; // Import UserDetails component
+import UserDetails from './components/UserDetails'; 
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
@@ -14,33 +14,28 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route 
-          path="/" 
+        <Route path="/" 
           element={
             <PrivateRoute>
               <Home />
             </PrivateRoute>
           } 
         />
-        <Route 
-          path="/myCab" 
+        <Route path="/myCab" 
           element={
             <PrivateRoute>
               <MyCab />
             </PrivateRoute>
           } 
         />
-        <Route 
-          path="/admin-dashboard" 
+        <Route path="/admin-dashboard" 
           element={
             <PrivateRoute adminOnly={true}>
               <AdminDashboard />
             </PrivateRoute>
           } 
         />
-        {/* Add Profile route */}
-        <Route 
-          path="/profile" 
+        <Route path="/profile" 
           element={
             <PrivateRoute>
               <UserDetails />
