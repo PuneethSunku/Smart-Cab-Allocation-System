@@ -3,26 +3,13 @@ const fetchUser = require('../middleware/fetchUser');
 const Cab = require('../models/Cab');
 const router = express.Router();
 
-
-
 // Define your routes
-router.post('/addCab', fetchUser, async (req, res) => {
+router.post('/addCab', async (req, res) => {
   try {
-    console.log('Request Body:', req.body);  // Log to see incoming data
+    console.log('Request Body:', req.body);  
     const { name, phone, email, latitude, longitude, pincode, town, bookedStatus, bookedWith } = req.body;
 
-    const newCab = new Cab({
-      name,
-      phone,
-      email,
-      latitude,
-      longitude,
-      pincode,
-      town,
-      bookedStatus,
-      bookedWith,
-    });
-
+    const newCab = new Cab({ name, phone, email, latitude, longitude, pincode, town, bookedStatus, bookedWith });
     await newCab.save();
     res.status(201).json({ message: 'Cab added successfully!' });
   } catch (error) {
@@ -45,9 +32,9 @@ router.get('/availableCabs', async (req, res) => {
 // POST to book a cab
 router.post('/bookCab/:cabId', fetchUser, async (req, res) => {
   try {
+    console.log("Check1");
     const cabId = req.params.cabId;
     const userId = req.user;  // Extracted userId from token
-
     // Find the cab by ID and ensure it's available
     const cab = await Cab.findById(cabId);
     if (!cab) {
@@ -58,11 +45,10 @@ router.post('/bookCab/:cabId', fetchUser, async (req, res) => {
       return res.status(400).json({ error: 'Cab is not available' });
     }
 
-    // Update the cab's status and assign it to the user
     console.log('Cab before update:', cab);
     cab.bookedStatus = 'Not Available';
     cab.bookedWith = userId;
-
+    
     await cab.save();
     console.log('Cab after update:', cab);
     res.status(200).json({ message: 'Cab booked successfully!', cab });
@@ -72,27 +58,30 @@ router.post('/bookCab/:cabId', fetchUser, async (req, res) => {
   }
 });
 
+router.post('/tripDetails', async(req,res)=>{
+  try{
+
+  }catch(err){
+    console.error(err);
+    res.status(500).json("Server Issue");
+  }
+});
 
 router.post('/endTrip/:cabId', async (req, res) => {
   try {
     const { cabId } = req.params;
     const { destinationLat, destinationLng } = req.body;
 
-    // Fetch the cab by ID
     const cab = await Cab.findById(cabId);
     if (!cab) {
       return res.status(404).json({ message: 'Cab not found' });
     }
-
     // Update cab's location and availability status
     cab.latitude = destinationLat;
     cab.longitude = destinationLng;
     cab.bookedStatus = 'Available';
-    cab.bookedWith = null;
-
-    // Save changes
+    //cab.bookedWith = '';
     await cab.save();
-
     res.status(200).json({ message: 'Trip ended successfully', cab });
   } catch (error) {
     console.error('Error ending the trip:', error);
@@ -102,3 +91,4 @@ router.post('/endTrip/:cabId', async (req, res) => {
 
 
 module.exports = router; 
+  
