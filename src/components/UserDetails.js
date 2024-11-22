@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar'; // Import the Navbar component
-import './UserDetails.css'; // Assuming you want to apply some custom styles
+import Navbar from './Navbar'; 
+import AdminNavbar from './AdminNavbar'; 
+import './UserDetails.css';
 
 const UserDetails = () => {
   const [credentials, setCredentials] = useState({ email: "", name: "" });
+  const isAdmin = localStorage.getItem('isAdmin') === 'true'; // Retrieve admin status
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -24,9 +26,7 @@ const UserDetails = () => {
 
   return (
     <>
-      {/* Navbar will still be shown on this page */}
-      <Navbar hideProfileButton={true} /> 
-
+      {isAdmin ? <AdminNavbar hideProfileButton={true}/> : <Navbar hideProfileButton={true} />}
       <div className="profile-page">
         <div className="profile-card card">
           <div className="card-body">
