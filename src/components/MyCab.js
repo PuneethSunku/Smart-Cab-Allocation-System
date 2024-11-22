@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import axios from 'axios';
-require('dotenv').config();
 
-// Helper function to calculate distance using Haversine formula
 const calculateDistance = (fromLat, fromLng, toLat, toLng) => {
   const toRadians = (degree) => (degree * Math.PI) / 180;
-  const R = 6371; // Radius of Earth in kilometers
+  const R = 6371;
   const dLat = toRadians(toLat - fromLat);
   const dLng = toRadians(toLng - fromLng);
   const a =
@@ -15,16 +13,13 @@ const calculateDistance = (fromLat, fromLng, toLat, toLng) => {
     Math.cos(toRadians(fromLat)) * Math.cos(toRadians(toLat)) *
     Math.sin(dLng / 2) * Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // Distance in kilometers
+  return R * c;
 };
-
-// Calculate estimated time based on a fixed speed (e.g., 200 km/h)
 const calculateTime = (distance) => {
   const speed = 200; // Assuming cab speed is 200 km/h
   return (distance / speed) * 60; // Time in minutes
 };
 
-// Format the time in a user-friendly format
 const formatTime = (minutes) => {
   if (minutes < 1) {
     const seconds = Math.round(minutes * 60);
@@ -42,9 +37,9 @@ const formatTime = (minutes) => {
     return `${days} days ${hours > 0 ? hours + ' hrs' : ''}`;
   }
 };
-
 const MyCab = () => {
   const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   const { bookedCab, fromLat, fromLng, toLat, toLng } = location.state || {};
   const [cabPosition, setCabPosition] = useState({ lat: bookedCab.lat, lng: bookedCab.lng });
@@ -75,11 +70,10 @@ const MyCab = () => {
 
       setCabMarker(newCabMarker);
     };
-
     const loadGoogleMapsScript = () => {
       if (!document.querySelector(`script[src*="maps.googleapis.com/maps/api/js"]`)) {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key={process.env.api}&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ8nmutuyTUzyBeY7WoAyA0A7qc4qZeTQ&callback=initMap`;
         script.async = true;
         window.initMap = initMap;
         document.body.appendChild(script);
@@ -121,7 +115,6 @@ const MyCab = () => {
   useEffect(() => {
     if (path && path.length > 0) {
       let step = 0; // Start from the first step of the path
-  
       const interval = setInterval(() => {
         if (step < path.length) {
           const nextPosition = path[step];
@@ -129,7 +122,7 @@ const MyCab = () => {
           const nextLng = nextPosition.lng();
   
           const newDistance = calculateDistance(nextLat, nextLng, fromLat, fromLng); // Distance to the user's current location
-          console.log('Current Distance:', newDistance); // Debugging log
+          console.log('Current Distance:', newDistance); 
           
           // Update the estimated time based on the new distance
           const newTime = calculateTime(newDistance);
@@ -142,16 +135,22 @@ const MyCab = () => {
           cabMarker.setPosition(nextPosition);
           map.setCenter(nextPosition);
   
-          step += 10; // Move by a smaller step for accuracy
-  
-          // If cab reaches user's current location, enable the "End Trip" button
-          if (newDistance < 0.5) { // Threshold to consider it "reached"
+          step += 10; 
+
+          if(step >= path.length - 5){// Threshold
             console.log('Cab has reached the user location');
             clearInterval(interval); // Stop the cab at user's current location
+          
+            // Directly set the cab's position and center the map at user's location
+            cabMarker.setPosition(new window.google.maps.LatLng(fromLat, fromLng));
+            map.setCenter({ lat: fromLat, lng: fromLng });
+            
+            alert('Cab Arrived..');
             setIsEndTripEnabled(true); // Enable "End Trip" button
           }
+          
         }
-      }, 1000); // You can increase speed by reducing the delay to, e.g., 500ms
+      }, 1000); 
   
       return () => clearInterval(interval);
     }
@@ -172,7 +171,6 @@ const MyCab = () => {
       alert('Failed to end the trip.');
     }
   };
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
@@ -181,20 +179,15 @@ const MyCab = () => {
       </h2>
       <div id="myCabMap" style={{ flex: 1, width: '100%' }}></div>
       <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#f1f1f1' }}>
-        <p><strong>Your Cab will arrive in:</strong> {estimatedTime}.....</p>
+      {!isEndTripEnabled ? (
+        <p><strong>Your Cab will arrive in:</strong> {estimatedTime}...</p>
+      ) : (
+        <p><strong>Your Cab has arrived</strong></p>
+      )}
         {/* <p><strong>Distance Remaining:</strong> {distanceRemaining.toFixed(2)} km</p> */}
-        <button
-          onClick={endTrip}
+        <button onClick={endTrip}
           disabled={!isEndTripEnabled} // Disable until cab reaches user's location
-          style={{
-            padding: '10px 15px',
-            backgroundColor: isEndTripEnabled ? '#28a745' : '#d9534f',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: isEndTripEnabled ? 'pointer' : 'not-allowed',
-            marginTop: '20px',
-          }}
+          style={{ padding: '10px 15px', backgroundColor: isEndTripEnabled ? '#28a745' : '#d9534f', color: '#fff', border: 'none', borderRadius: '4px', cursor: isEndTripEnabled ? 'pointer' : 'not-allowed', marginTop: '20px' }}
         >
           End Trip
         </button>
@@ -204,4 +197,3 @@ const MyCab = () => {
 };
 
 export default MyCab;
-
