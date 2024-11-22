@@ -1,36 +1,36 @@
-    import React from 'react';
-    import { Link, useNavigate } from 'react-router-dom';
-    import './Navbar.css';
+import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import './Navbar.css';
 
-    const Navbar = () => {
-        let navigate = useNavigate();
+const Navbar = ({ hideProfileButton }) => {
+    let navigate = useNavigate();
+    const location = useLocation();
 
-        const handleLogOut = () => {
-            localStorage.removeItem('auth-token'); // Remove token from localStorage on logout
-            navigate('/login'); // Navigate to login page
-        };
+    const handleLogOut = () => {
+        localStorage.removeItem('auth-token'); 
+        localStorage.removeItem('isAdmin');
+        navigate('/login');
+    };
 
-        return (
-            <nav className="navbar">
-                <div className="navbar-content">
-                    {/* Smart Cabs logo aligned to the left */}
-                    <div className="navbar-brand">Smart Cabs</div>
-
-                    {/* Render logout button and user icon aligned to the right */}
-                    {localStorage.getItem('auth-token') && (
-                        <div className="navbar-right">
+    return (
+        <nav className="navbar">
+            <div className="navbar-content">
+                <Link className="navbar-brand" to="/admin-dashboard">Smart Cabs</Link>
+                {localStorage.getItem('auth-token') && (
+                    <div className="navbar-right">
+                        {!hideProfileButton && location.pathname !== '/profile' && (
                             <button className="logout-btn" onClick={() => navigate('/profile')}>
                                 Profile
                             </button>
-                            <button className="logout-btn" onClick={handleLogOut}>
-                                LogOut
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </nav>
-        );
-    };
+                        )}
+                        <button className="logout-btn" onClick={handleLogOut}>
+                            Logout
+                        </button>
+                    </div>
+                )}
+            </div>
+        </nav>
+    );
+};
 
-    export default Navbar;
-    
+export default Navbar;
