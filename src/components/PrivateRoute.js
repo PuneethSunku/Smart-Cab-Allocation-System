@@ -1,25 +1,21 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; // Correct import
+import {jwtDecode} from 'jwt-decode';
 
 const PrivateRoute = ({ children, adminOnly = false }) => {
-  const token = localStorage.getItem('auth-token'); // Get token from localStorage
-
+  const token = localStorage.getItem('auth-token');
   if (!token) {
-    // If no token, redirect to login
     return <Navigate to="/login" />;
   }
-
   try {
     const decodedToken = jwtDecode(token);
-    const isAdmin = decodedToken?.isAdmin; // Assuming the token contains 'isAdmin' flag
+    const isAdmin = decodedToken?.isAdmin;
 
     if (adminOnly && !isAdmin) {
       // If the route is admin-only and user is not an admin, redirect to Home
       return <Navigate to="/" />;
     }
-    
-    return children; // Render the component if checks pass
+    return children;
   } catch (error) {
     // In case of token parsing errors, log the user out (optional)
     localStorage.removeItem('auth-token');
